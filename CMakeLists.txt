@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.20)
+project(example)
+
+set(CMAKE_BUILD_TYPE Debug)
+
+set(CMAKE_CXX_STANDARD 17)
+
+list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+# Comment out if on MacOS, but not Apple Silicon
+if(APPLE)
+    set(CMAKE_OSX_ARCHITECTURES "arm64")
+endif()
+
+# Libigl
+
+include(libigl)
+
+# Enable the target igl::glfw
+igl_include(glfw)
+# Other modules you could enable
+#igl_include(embree)
+#igl_include(imgui)
+#igl_include(opengl)
+#igl_include(stb)
+#igl_include(predicates)
+#igl_include(xml)
+#igl_include(copyleft cgal)
+#igl_include(copyleft comiso)
+#igl_include(copyleft core)
+#igl_include(copyleft cork)
+igl_include(copyleft tetgen)
+#igl_include(restricted matlab)
+#igl_include(restricted mosek)
+#igl_include(restricted triangle)
+
+add_subdirectory(deps/polyscope)
+add_subdirectory(deps/geometry-central)
+
+# Add your project files
+file(GLOB SRC_FILES *.cpp)
+add_executable(${PROJECT_NAME} ${SRC_FILES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/deps/polyscope/deps/args")
+
+# Link igl (and the glfw module) to your project
+target_link_libraries(${PROJECT_NAME} PUBLIC 
+  igl::glfw
+  ## Other modules you could link to
+  # igl::embree
+  # igl::imgui
+  # igl::opengl
+  # igl::stb
+  # igl::predicates
+  # igl::xml
+  # igl_copyleft::cgal
+  # igl_copyleft::comiso
+  # igl_copyleft::core
+  # igl_copyleft::cork
+  igl_copyleft::tetgen
+  # igl_restricted::matlab
+  # igl_restricted::mosek
+  # igl_restricted::triangle
+  polyscope
+  geometry-central
+)
