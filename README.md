@@ -7,7 +7,9 @@ This respository implements the method (FaCE) described in ["Faraday Cage Estima
 
 ## Setup
 
-### 0. Install [CMake](https://cmake.org/download/)
+### 0. Prerequisites
+
+You will need [CMake](https://cmake.org/download/) for generating build files. Additionally, [SuiteSparse](https://github.com/DrTimothyAldenDavis/SuiteSparse) is highly recommended for speeding up the linear solve. Other dependencies are included as submodules ([Polyscope](https://github.com/nmwsharp/polyscope), [Geometry Central](https://github.com/nmwsharp/geometry-central)) or downloaded by CMake ([libigl](https://github.com/libigl/libigl), [TetGen](https://wias-berlin.de/software/index.jsp?id=TetGen&lang=1)), so you shouldn't need to worry about installing them manually. 
 
 ### 1. Clone the repository
 
