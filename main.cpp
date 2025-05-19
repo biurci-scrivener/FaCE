@@ -228,7 +228,7 @@ void myCallback() {
 		}
 
 		ImGui::Text("");
-		ImGui::TextWrapped("Isosurface parameter. NOTE: this is not the isosurface used for interior point classification! That isosurface is controlled by the alpha parameter below. Instead, this surface is here to help you click near regions of interest. Try \"carving\" on regions of the isosurface that appear to bulge outward, or \"shielding\" where the surface dips in too much.");
+		ImGui::TextWrapped("Isosurface parameter. Clicking on this \"proxy surface\" creates a new point charge (carving mode) or cage vertex (shielding mode).");
 		ImGui::SetNextItemWidth(200.0f);
 		if (ImGui::InputDouble("##Iso", &vis_isosurface_param, 0.01, 0.1, "%.6f")) {
 			vis_isosurface_param = vis_isosurface_param < 0. ? 0. : vis_isosurface_param;
@@ -308,8 +308,6 @@ void myCallback() {
 	if ((io.MouseClicked[0]) && (PICKING_ENABLED) && (!sculpt_just_changed)) { // if the left mouse button was clicked
 		// gather values
 		glm::vec2 screenCoords{io.MousePos.x, io.MousePos.y};
-		glm::vec3 worldRay = polyscope::view::screenCoordsToWorldRay(screenCoords);
-		glm::vec3 worldPos = polyscope::view::screenCoordsToWorldPosition(screenCoords);
 		std::pair<polyscope::Structure*, size_t> pickPair = 
 			polyscope::pick::pickAtScreenCoords(screenCoords);
 
@@ -354,7 +352,7 @@ void myCallback() {
 		}
 	}
 
-	if (io.KeysDown[ImGuiKey_S]) {
+	if (ImGui::IsKeyDown(ImGuiKey_S)) {
 		if (!key_s_just_pressed) {
 			PICKING_ENABLED = !PICKING_ENABLED;
 			key_s_just_pressed = true;
@@ -365,9 +363,9 @@ void myCallback() {
 		key_s_just_pressed = false;
 	} 
 
-	if (io.KeysDown[ImGuiKey_C]) {
+	if (ImGui::IsKeyDown(ImGuiKey_C)) {
 		SCULPT_MODE = 0;
-	} else if (io.KeysDown[ImGuiKey_V]) {
+	} else if (ImGui::IsKeyDown(ImGuiKey_V)) {
 		SCULPT_MODE = 1;
 	}
 }
@@ -456,6 +454,7 @@ int main(int argc, char **argv) {
 
 	if (!RUN_HEADLESS) {
 		polyscope::init();
+		polyscope::options::uiScale = 1.0;
 		polyscope::state::userCallback = myCallback;
 
 		initPolyscopeStructures(f);

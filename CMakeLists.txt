@@ -1,16 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
-project(example)
+project(face)
 
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
 
 set(CMAKE_CXX_STANDARD 17)
 
 list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
-# Comment out if on MacOS, but not Apple Silicon
-if(APPLE)
-    set(CMAKE_OSX_ARCHITECTURES "arm64")
-endif()
 
 # Libigl
 

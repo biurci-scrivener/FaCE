@@ -32,7 +32,6 @@
 *.swp
 
 build/*
-build2/*
 
 .vscode
 .DS_Store
