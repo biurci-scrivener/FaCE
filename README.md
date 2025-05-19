@@ -7,16 +7,16 @@ This respository implements the method (FaCE) described in ["Faraday Cage Estima
 
 ## Setup
 
-### macOS/Linux
+### 0. Install [CMake](https://cmake.org/download/)
 
-#### 0. Install [CMake](https://cmake.org/download/)
+### 1. Clone the repository
 
-#### 1. Clone the repository
-
-In your terminal:
+In PowerShell/Terminal:
 ```
 git clone --recurse-submodules https://github.com/biurci-scrivener/face.git
 ```
+
+### macOS/Linux
 
 #### 2. Run CMake
 
@@ -43,13 +43,6 @@ make -j10
 ### Windows
 
 The easiest way to build FaCE is using [Visual Studio](https://visualstudio.microsoft.com/).
-
-#### 1. Clone the repository
-
-In PowerShell/Terminal:
-```
-git clone --recursive https://github.com/biurci-scrivener/face.git
-```
 
 #### 2. Generate build files for Visual Studio with CMakeGUI
 
